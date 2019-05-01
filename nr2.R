@@ -1,0 +1,32 @@
+install.packages("editrules")
+library(editrules)
+nr2<-read.csv("https://raw.githubusercontent.com/edwindj/datacleaning/master/data/dirty_iris.csv",header=TRUE)
+head(nr2)
+complete.cases(nr2)
+as.numeric(complete.cases(nr2))
+sum(as.numeric(complete.cases(nr2)))
+nrow(nr2)
+(sum(as.numeric(complete.cases(nr2)))/nrow(nr2))*100
+sum(is.na(nr2))
+which(is.na(nr2))
+
+is.na(nr2)<-sapply(nr2,is.infinite)
+is.na(nr2)<-sapply(nr2,is.nan)
+data.frame(nr2)
+
+install.packages("editrules")
+library(editrules)
+dat<-data.frame(a=c(1,Inf),b=c(Inf,3),d=c("a","b"))
+dat
+is.infinite(dat$b)
+is.na(dat)<-sapply(dat,(is.infinite))
+dat
+E <- editfile('C:/Users/Nirnay_Mittal/Desktop/sem VI/dm practical/editrules q2.txt')
+ve<-violatedEdits(E,nr1)
+print(ve)
+View(nr1)
+summary(ve,E)
+summary(ve)
+plot(E)
+plot(ve)
+plot(E,layout = layout.grid)
