@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+struct Process
+{
+int no;
+int burst;
+int turnaround;
+int waiting;
+int priority;
+};
+int main()
+{
+Process *p;
+int size;
+cout<<"Enter the no. of Process : ";
+cin>>size;
+p = new Process[size];
+for(int i=0;i<size;i++){
+p[i].no = i+1;
+cout<<"\nBurst Time for process "<<i+1<<" : ";
+cin>>p[i].burst;
+cout<<"\nPriority for process "<<i+1<<" : ";
+cin>>p[i].priority;
+}
+Process temp;
+for(int i=0;i<size-1;++i)
+{
+for(int j=0;j<size-1-i;++j)
+{
+if(p[j].priority>p[j+1].priority)
+{
+temp=p[j];
+p[j]=p[j+1];
+p[j+1]=temp;
+}
+}
+}
+for(int i=0;i<size;++i)
+{p[i].turnaround =p[i].waiting=0;
+for(int j=0;j<=i;++j)
+p[i].turnaround+=p[j].burst;
+for(int j=0;j<i;++j)
+p[i].waiting+=p[j].burst;
+}
+float avgtur=0,avgwait=0;
+for(int i=0;i<size;++i)
+{
+cout<<"\nProcess no. : "<<p[i].no;
+cout<<"\nTurnaround Time : "<<p[i].turnaround;
+cout<<"\nWaiting Time : "<<p[i].waiting;
+cout<<endl;
+avgtur+=p[i].turnaround;
+avgwait+=p[i].waiting;
+}
+cout<<"\nAverage waiting time = "<<avgwait/size;
+cout<<"\nAverage turnaround time = "<<avgtur/size;
+}

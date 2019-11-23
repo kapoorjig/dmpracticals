@@ -1,0 +1,22 @@
+//Q4 part d
+#include<iostream>
+#include<sys/wait.h>
+#include<sys/types.h>
+#include<unistd.h>
+using namespace std;
+
+int main(){
+int id;
+id = fork();
+if(id<0)
+cout<<"Failure";
+else if(id == 0){
+cout<<"Great rj id : "<<id;
+wait(NULL);
+}
+else
+{
+cout<<"Shivam id : "<<id;
+//wait(NULL);
+}
+}

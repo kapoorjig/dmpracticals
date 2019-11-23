@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+struct process
+{
+        int no;
+        float burst;
+        float turnaround;
+        float waiting;
+        int np;
+};
+int main ()
+{
+        process *p;
+        int size,i;
+        cout<<"Enter the number of processes:";
+        cin>>size;
+
+        p=new process[size];
+        for(int i=0;i<size;i++)
+        {
+                p[i].no=i+1;
+                cout<<"\nBurst time for process "<<i+1<<" : ";
+                cin>>p[i].burst;
+                p[i].np=0;
+        }
+
+        int quantum,clock=0;
+        int flag;
+        cout<<"\nEnter Time Qunatum : ";
+        cin>>quantum;
+
+        process *temp=p;
+        p[i].turnaround=p[i].waiting=0;
+        do
+        {
+                flag=0;
+                for(int i=0;i<size;++i)
+                {
+                        if(temp[i].burst>0)
+                        {
+                                flag=1;
+                                if(temp[i].burst-quantum>0)
+                                {
+       temp[i].burst-=quantum;
+                                        clock+=quantum;
+                                }
+                                else if(temp[i].burst-quantum==0)
+                                {
+                                        p[i].waiting=clock-p[i].np*quantum;
+                                        clock+=quantum;
+                                        temp[i].burst=0;
+                                        p[i].turnaround=clock;
+                                }
+                                else
+                                {
+                                        p[i].waiting=clock-p[i].np*quantum;
+                                        clock+=temp[i].burst;
+                                        temp[i].burst=0;
+                                        p[i].turnaround=clock;
+                                }
+                                p[i].np++;
+                        }
+                }
+        }while(flag);
+        float avgturn=0,avgwait=0;
+        for(int i=0;i<size;++i)
+        {
+
+                cout<<"\nProcess No.:"<<p[i].no;
+                cout<<"\nTurnaround Time:"<<p[i].turnaround;
+                cout<<"\nWaiting Time:"<<p[i].waiting;
+                cout<<endl;
+                avgturn+=p[i].turnaround;
+                avgwait+=p[i].waiting;
+        }
+        cout<<"________________________________\n";
+        cout<<"\nAverage turnaround time = "<<avgturn/size;
+        cout<<"\nAverage waiting time = "<<avgwait/size;
+return 0;
+}

@@ -1,0 +1,57 @@
+#include<iostream>
+#include<sys/wait.h>
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+using namespace std;
+int main(){
+ int np,pagesize,ramsize;
+cout<<"enter the no of processes:"<<endl;
+cin>>np;
+cout<<"enter the no of pagesize"<<endl;
+cin>>pagesize;
+cout<<"enter the ramsize"<<endl;
+cin>>ramsize;
+int nof;
+nof = ramsize/pagesize;
+cout<<"the nof is"<<nof<<endl;
+int table[nof][2];
+int psize[np];
+cout<<"enter the size of each process:"<<endl;
+for(int i =0;i<np;i++)
+cin>>psize[i];
+int npp[np];
+int rem=0,quo= 0;
+for(int i=0;i<np;i++)
+{
+ rem = psize[i]%pagesize;
+ if(rem>0)
+ quo = (psize[i]/pagesize)+1;
+else
+quo = psize[i]/pagesize;
+npp[i]= quo;
+}
+
+for(int i = 0;i<nof;i++)
+{
+  table[i][0]=999;
+  table[i][1]=-1;
+}
+int x;
+srand(time(NULL));
+ for(int j= 0;j<np;j++)
+ for(int r= 0;r<npp[j];r++)
+ {
+   x =rand()%30;
+  if(table[x][0]==999)
+ {
+  table[x][0]= j;
+  table[x][1]=r;
+ }
+ }
+for(int i = 0;i<nof;i++)
+{
+ cout<<table[i][0]<<"     "<<table[i][1]<<endl;
+}
+return 0;
+}

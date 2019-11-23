@@ -1,0 +1,64 @@
+#include<iostream>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<unistd.h>
+using namespace std;
+
+void burstTime(int pro[],int no){
+for(int i=0;i<no;i++)
+        {
+                cout<<"Enter the burst time of process "<<i+1<<" : ";
+                cin>>pro[i];
+                cout<<"\n";
+        }
+}
+int main()
+{
+
+        int process[20],no,waiting[20],x=0,arrive[20],turn[20],wwaiting[20];
+        float y=0;
+        cout<<"Enter No. of Processes : ";
+        cin>>no;
+        burstTime(process,no);
+        for(int i=0;i<no;i++)
+        {
+                cout<<"Enter the arrival time of process "<<i+1<<" : ";
+                cin>>arrive[i];
+                cout<<endl;
+        }
+        for(int i=0;i<=no;i++)
+        {
+                x=0;
+                for(int j=0;j<i;j++)
+                {
+                        x+=process[j];
+                }
+                if(i<no)
+                {
+                        wwaiting[i]=x;
+                        waiting[i]=x-arrive[i];
+                }
+                else  wwaiting[i]=x;
+        }
+        for(int k=0;k<no;k++)
+ {
+
+                cout<<"The waiting time of "<<k+1<<" is : ";
+                cout<<waiting[k]<<"\n";
+        }
+        int j=0;
+        for(int k=0;k<no;k++)
+        y+=waiting[k];
+        for(int i=1;i<=no;i++)
+        {
+
+                turn[j]=wwaiting[i]-arrive[j++];
+        }
+        for(int i=1;i<=no;i++)
+
+        {
+                cout<<"Turn around time of "<<i<<" is : ";
+                cout<<turn[i]<<"\n";
+        }
+        cout<<"\nThe average waiting time is : "<<y/no;
+}

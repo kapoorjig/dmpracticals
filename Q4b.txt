@@ -1,0 +1,23 @@
+//Q4 part b same program different code
+#include<iostream>
+#include<sys/wait.h>
+#include<sys/types.h>
+#include<unistd.h>
+using namespace std;
+
+int main(){
+int id;
+id = fork();
+if(id<0)
+cout<<"Failure";
+else if(id == 0){
+cout<<"child has been created in child process.\n";
+//wait(NULL);
+}
+else
+{
+cout<<"child returning  id to parent : "<<id;
+//wait(NULL);
+cout<<"\nChecking after wait";
+}
+}

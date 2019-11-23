@@ -1,0 +1,17 @@
+//Q4 part a same program same code
+#include<iostream>
+#include<sys/wait.h>
+#include<sys/types.h>
+#include<unistd.h>
+using namespace std;
+
+int main(){
+int id;
+id = fork();
+if(id<0)
+cout<<"Failure";
+else if(id == 0)
+cout<<"child process is running";
+else
+cout<<"Parent process is running";
+}

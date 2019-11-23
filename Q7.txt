@@ -1,0 +1,27 @@
+#include<sys/wait.h>
+#include<unistd.h>
+#include<iostream>
+#include<sys/types.h>
+#include<pthread.h>
+#include<unistd.h>
+using namespace std;
+void *MyFunc(void *i);
+int main()
+{
+int *x,y[1]={22};
+x=y;
+pthread_t id;
+pthread_attr_t attr;
+pthread_attr_init(&attr);
+pthread_create(&id,&attr,MyFunc,(void*)x);
+pthread_join(id,NULL);
+cout<<"\nchecking x :"<<x<<"\nchecking *x : "<<*x;
+
+}
+void *MyFunc(void *i)
+{
+ int *num;
+num=(int*)i;
+cout<<"value received in the function : "<<*num<<"\n";
+pthread_exit(0);
+}

@@ -1,0 +1,37 @@
+
+
+			in this question make a file P1 and write anything to copy in another file
+
+#include<iostream>
+#include<fcntl.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<unistd.h>
+using namespace std;
+
+int main()
+{
+ int s = open("P1",0);
+ if(s==-1)
+ cout<<"the source file is not opened"<<endl;
+ if(s>0)
+ cout<<"the source file has opened"<<endl;
+ int d = open("new",1);
+ if(d==-1)
+ cout<<"the destination file has not opened"<<endl;
+ if(d>0)
+ cout<<"the destination file has opened"<<endl;
+ char temp[50];
+ char c=1;
+ while(c>0)
+{
+ c = read(s,temp,sizeof(temp));
+ write(d,temp,c);
+ }cout<<"copying complete!"<<endl;
+close(s);
+close(d);
+}
+
+
+
+

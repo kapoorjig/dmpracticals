@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<sys/mman.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<sys/shm.h>
+#include<string.h>
+
+int main()
+
+{
+
+char *name="File";
+
+int fd=shm_open(name,O_RDONLY,0777);
+
+int size=4096;
+
+ftruncate(fd,size);
+
+void *ptr=mmap(0,size,PROT_WRITE,MAP_SHARED,fd,0);
+
+printf("%s",(char*)ptr);
+shm_unlink(name);
+}
